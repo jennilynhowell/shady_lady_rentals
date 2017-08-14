@@ -27,7 +27,7 @@ Integrate with at least one "outside" data store or API.
 
 #### Timeline Goals
 * Week 1: Set up models and API. Get a front-end working. Deploy to AWS.
-* Week 2: Implement Spring Web Flow and Maps/Weather. Work on UI. Deploy.
+* Week 2: Implement Spring Web Flow and Maps/Weather. Implement Spring Security. Work on UI. Deploy.
 * Week 3: Fix bugs, polish UI. Deploy, deploy, deploy.
 * Week 4: Get something working on iOS.
 
