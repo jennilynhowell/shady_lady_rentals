@@ -9,7 +9,11 @@ public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "name")
     private String companyName;
+
+    @Column(name = "rep_name")
     private String repName;
     private String phone;
     private String website;

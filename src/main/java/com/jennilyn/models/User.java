@@ -14,9 +14,12 @@ public class User {
     private String username;
     private String password;
 
+    @Column(name = "street_address")
     private String address;
     private String city;
     private String state;
+
+    @Column(name = "postal_code")
     private String zipCode;
     private String phone;
 

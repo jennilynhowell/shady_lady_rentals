@@ -14,5 +14,5 @@ public class Product {
     private double purchaseCost;
     private double salePrice;
     private int numberOnHand;
-    
+
 }
