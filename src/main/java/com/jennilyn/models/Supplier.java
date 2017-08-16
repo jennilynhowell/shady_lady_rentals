@@ -1,6 +1,10 @@
 package com.jennilyn.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "supplier")
@@ -17,6 +21,11 @@ public class Supplier {
     private String repName;
     private String phone;
     private String website;
+
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.PERSIST)
+    @JsonBackReference
+    private List<Product> products;
+
 
     public long getId() {
         return id;
@@ -56,5 +65,13 @@ public class Supplier {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }
