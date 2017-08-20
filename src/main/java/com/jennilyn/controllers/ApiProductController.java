@@ -36,4 +36,9 @@ public class ApiProductController {
         return product;
     }
 
+    @RequestMapping(value = "/api/products/{productId}", method = RequestMethod.PATCH)
+    public @ResponseBody Product updateProduct(){
+        return null;
+    }
+
 }
