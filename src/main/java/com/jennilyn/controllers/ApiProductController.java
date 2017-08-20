@@ -30,15 +30,27 @@ public class ApiProductController {
         return productRepo.findAllByProductNameContains(query);
     }
 
+   //TODO how to set the supplier with post/put?
+
     @RequestMapping(value = "/api/products/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody Product addProduct(@RequestBody Product product) {
         productRepo.save(product);
-        return product;
+        return productRepo.findProductByProductName(product.getProductName());
     }
 
-    @RequestMapping(value = "/api/products/{productId}", method = RequestMethod.PATCH)
-    public @ResponseBody Product updateProduct(){
-        return null;
+    @RequestMapping(value = "/api/products/{productId}", method = RequestMethod.PUT)
+    public Product updateProduct(@PathVariable("productId") Product product,
+                                 @RequestBody Product productUpdate){
+
+        product.setProductName(productUpdate.getProductName());
+        product.setDescription(productUpdate.getDescription());
+        product.setPurchaseCost(productUpdate.getPurchaseCost());
+        product.setSalePrice(productUpdate.getSalePrice());
+        product.setNumberInStock(productUpdate.getNumberInStock());
+        
+        productRepo.save(product);
+
+        return product;
     }
 
 }
