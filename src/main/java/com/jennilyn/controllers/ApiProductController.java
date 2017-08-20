@@ -31,18 +31,8 @@ public class ApiProductController {
     }
 
     @RequestMapping(value = "/api/products/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Product addProduct(@RequestBody Product product) {
-//        Supplier supplier = supplierRepo.findOne(supplierId);
-//        Product product = new Product();
-//        product.setProductName(product.productName);
-//        product.setDescription(description);
-//        product.setPurchaseCost(purchaseCost);
-//        product.setSalePrice(salePrice);
-//        product.setNumberInStock(numberInStock);
-//        product.setSupplier(supplier);
+    public @ResponseBody Product addProduct(@RequestBody Product product) {
         productRepo.save(product);
-//        Product newProduct = productRepo.findProductByProductName(productName);
-
         return product;
     }
 

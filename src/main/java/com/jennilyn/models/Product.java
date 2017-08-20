@@ -29,7 +29,6 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
-    @JsonManagedReference
     private Supplier supplier;
 
     public Product() {}
