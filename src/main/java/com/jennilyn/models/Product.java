@@ -1,6 +1,7 @@
 package com.jennilyn.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -30,6 +31,8 @@ public class Product {
     @JoinColumn(name = "supplier_id")
     @JsonManagedReference
     private Supplier supplier;
+
+    public Product() {}
 
     public long getId() {
         return id;

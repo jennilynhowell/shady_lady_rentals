@@ -1,6 +1,7 @@
 package com.jennilyn.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Supplier {
     @JsonBackReference
     private List<Product> products;
 
+    public Supplier() {}
 
     public long getId() {
         return id;
