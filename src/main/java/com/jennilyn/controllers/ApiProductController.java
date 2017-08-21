@@ -13,7 +13,6 @@ public class ApiProductController {
 
     @Autowired
     ProductRepository productRepo;
-
     @Autowired
     SupplierRepository supplierRepo;
 
@@ -47,7 +46,7 @@ public class ApiProductController {
         product.setPurchaseCost(productUpdate.getPurchaseCost());
         product.setSalePrice(productUpdate.getSalePrice());
         product.setNumberInStock(productUpdate.getNumberInStock());
-        
+
         productRepo.save(product);
 
         return product;

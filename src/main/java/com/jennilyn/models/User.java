@@ -20,7 +20,7 @@ public class User {
     private String state;
 
     @Column(name = "postal_code")
-    private String zipCode;
+    private int zipCode;
     private String phone;
 
     public long getId() {
@@ -79,11 +79,11 @@ public class User {
         this.state = state;
     }
 
-    public String getZipCode() {
+    public int getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(String zipCode) {
+    public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
     }
 
