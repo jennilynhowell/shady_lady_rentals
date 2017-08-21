@@ -23,6 +23,12 @@ public class User {
     private int zipCode;
     private String phone;
 
+    @OneToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    public User() {}
+
     public long getId() {
         return id;
     }
@@ -93,5 +99,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
