@@ -1,4 +1,4 @@
-package com.jennilyn.controllers;
+package com.jennilyn.controllers.api;
 
 import com.jennilyn.models.User;
 import com.jennilyn.repositories.UserRepository;

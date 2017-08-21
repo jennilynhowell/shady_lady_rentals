@@ -1,4 +1,4 @@
-package com.jennilyn.controllers;
+package com.jennilyn.controllers.api;
 
 import com.jennilyn.models.Product;
 import com.jennilyn.models.Supplier;
