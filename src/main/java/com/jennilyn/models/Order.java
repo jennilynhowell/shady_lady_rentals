@@ -36,7 +36,7 @@ public class Order {
     private User rental_user;
 
     //Order has MANY orderProducts
-    @OneToMany(mappedBy = "customer_order", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer_order", cascade = CascadeType.PERSIST)
     @JsonBackReference
     private List<OrderProduct> orderProducts;
 
