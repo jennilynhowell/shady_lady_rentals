@@ -1,5 +1,7 @@
 package com.jennilyn.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jennilyn.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,9 +12,6 @@ import java.util.List;
 @Entity
 @Table(name = "customer_order")
 public class Order {
-
-    @Autowired
-    ProductRepository productRepo;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +32,12 @@ public class Order {
     //Order has ONE user but user can have many orders
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User rental_user;
 
     //Order has MANY orderProducts
-    @OneToMany(mappedBy = "customer_order", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "customer_order", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<OrderProduct> orderProducts;
 
     //TODO: calculate total
@@ -102,19 +103,23 @@ public class Order {
 
     //order has a list of OrderProducts, which has a list of Products that have .getSalePrice()
     public double getTotal() {
-        double total = 0.0;
-        for (OrderProduct orderProduct : orderProducts){
-            int quantity = orderProduct.getQuantity();
-            List<Product> products = orderProduct.getProducts();
-            for (Product product : products){
-                double subtotal = product.getSalePrice();
-                total += quantity * subtotal;
-            }
-        }
         return total;
     }
 
     public void setTotal(double total) {
         this.total = total;
     }
+
+//    public double calculateTotal(){
+//        double calculatedTotal = 0.0;
+//        for (OrderProduct orderProduct : orderProducts){
+//            int quantity = orderProduct.getQuantity();
+//            List<Product> products = orderProduct.getProducts();
+//            for (Product product : products){
+//                double subtotal = product.getSalePrice();
+//                calculatedTotal += quantity * subtotal;
+//            }
+//        }
+//        return calculatedTotal;
+//    }
 }

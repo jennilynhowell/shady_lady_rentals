@@ -1,5 +1,8 @@
 package com.jennilyn.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,9 +22,10 @@ public class OrderProduct {
     @JoinColumn(name = "customer_order_id")
     private Order customer_order;
 
-    //OrderProduct has MANY products
-    @OneToMany(mappedBy = "order_product", cascade = CascadeType.PERSIST)
-    private List<Product> products;
+    @ManyToOne(targetEntity = Product.class)
+    @JoinColumn(name = "product_id")
+    @JsonManagedReference
+    private Product product;
 
     public OrderProduct() {}
 
@@ -34,10 +38,6 @@ public class OrderProduct {
     }
 
     public int getQuantity() {
-        int quantity = 0;
-        for (Product product : products){
-            quantity ++;
-        }
         return quantity;
     }
 
@@ -45,19 +45,19 @@ public class OrderProduct {
         this.quantity = quantity;
     }
 
-    public Order getCustomerOrder() {
+    public Order getCustomer_order() {
         return customer_order;
     }
 
-    public void setCustomerOrder(Order customerOrder) {
-        this.customer_order = customerOrder;
+    public void setCustomer_order(Order customer_order) {
+        this.customer_order = customer_order;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

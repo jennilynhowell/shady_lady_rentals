@@ -1,5 +1,7 @@
 package com.jennilyn.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -28,12 +30,8 @@ public class Product {
     private Supplier supplier;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id")
+    @JoinColumn(name = "order_id")
     private Order cart;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private OrderProduct order_product;
 
     public Product() {}
 
@@ -101,11 +99,4 @@ public class Product {
         this.cart = cart;
     }
 
-    public OrderProduct getOrder_product() {
-        return order_product;
-    }
-
-    public void setOrder_product(OrderProduct order_product) {
-        this.order_product = order_product;
-    }
 }

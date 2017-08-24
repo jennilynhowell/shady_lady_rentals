@@ -1,5 +1,7 @@
 package com.jennilyn.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class User {
 
     //User can have many orders
     @OneToMany(mappedBy = "rental_user", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<Order> orders;
 
     public User() {}
