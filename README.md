@@ -37,7 +37,7 @@ Integrate with at least one "outside" data store or API.
 Shady Lady Rentals is a boutique beach rental firm that provides large canopies, coolers, and other beach necessities to families visiting Charleston's beaches.
 
 #### What?
-Custom beach rentals. Customers can select a number of items/services for their day at the beach, and SLR will have the order ready when the family arrives at the beach that morning.
+Custom beach rentals. Customers can select a number of items/services for their day at the beach, and SLR will have the customerOrder ready when the family arrives at the beach that morning.
 
 #### Where?
 Charleston, SC beaches: Sullivan's Island, Isle of Palms, and Folly Beach.

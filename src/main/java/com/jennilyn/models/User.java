@@ -1,6 +1,7 @@
 package com.jennilyn.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "rental_user")
@@ -26,6 +27,10 @@ public class User {
     @OneToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    //User can have many orders
+    @OneToMany(mappedBy = "rental_user", cascade = CascadeType.PERSIST)
+    private List<Order> orders;
 
     public User() {}
 
@@ -107,5 +112,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

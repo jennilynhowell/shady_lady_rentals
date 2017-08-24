@@ -1,9 +1,5 @@
 package com.jennilyn.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 
 @Entity
@@ -33,7 +29,11 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "cart_id")
-    private Cart cart;
+    private Order cart;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private OrderProduct order_product;
 
     public Product() {}
 
@@ -91,5 +91,21 @@ public class Product {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
+    }
+
+    public Order getCart() {
+        return cart;
+    }
+
+    public void setCart(Order cart) {
+        this.cart = cart;
+    }
+
+    public OrderProduct getOrder_product() {
+        return order_product;
+    }
+
+    public void setOrder_product(OrderProduct order_product) {
+        this.order_product = order_product;
     }
 }
