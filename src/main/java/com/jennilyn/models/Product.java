@@ -29,10 +29,6 @@ public class Product {
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order cart;
-
     public Product() {}
 
     public long getId() {
@@ -91,12 +87,5 @@ public class Product {
         this.supplier = supplier;
     }
 
-    public Order getCart() {
-        return cart;
-    }
-
-    public void setCart(Order cart) {
-        this.cart = cart;
-    }
 
 }

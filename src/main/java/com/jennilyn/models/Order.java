@@ -32,12 +32,12 @@ public class Order {
     //Order has ONE user but user can have many orders
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+    @JsonManagedReference
     private User rental_user;
 
     //Order has MANY orderProducts
     @OneToMany(mappedBy = "customer_order", cascade = CascadeType.PERSIST)
-    @JsonBackReference
+    @JsonManagedReference
     private List<OrderProduct> orderProducts;
 
     //TODO: calculate total

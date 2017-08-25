@@ -20,6 +20,7 @@ public class OrderProduct {
     //OrderProduct has ONE customerOrder
     @ManyToOne
     @JoinColumn(name = "customer_order_id")
+    @JsonBackReference
     private Order customer_order;
 
     @ManyToOne(targetEntity = Product.class)

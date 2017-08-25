@@ -1,6 +1,8 @@
 package com.jennilyn.controllers.api;
 
+import com.jennilyn.models.Order;
 import com.jennilyn.models.User;
+import com.jennilyn.repositories.OrderRepository;
 import com.jennilyn.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,6 +13,9 @@ public class ApiUserController {
 
     @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    OrderRepository orderRepo;
 
     @RequestMapping("/api/users")
     public Iterable<User> userApiList(){ return userRepo.findAll(); }
@@ -37,5 +42,10 @@ public class ApiUserController {
         userRepo.save(user);
         return user;
     }
+
+//    @RequestMapping(value = "/api/users/orders/{userId}")
+//    public Iterable<Order> userOrdersByUser(@PathVariable("userId") long userId){
+//        return orderRepo.findAllByRental_user(userId);
+//    }
 
 }
