@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "rental_user")
+@Table(name = "rentaluser")
 public class User {
 
     @Id
@@ -17,6 +17,8 @@ public class User {
     private String email;
     private String username;
     private String password;
+    private String first;
+    private String last;
 
     @Column(name = "street_address")
     private String address;
@@ -32,7 +34,7 @@ public class User {
     private Role role;
 
     //User can have many orders
-    @OneToMany(mappedBy = "rental_user", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "rentaluser", cascade = CascadeType.PERSIST)
     @JsonBackReference
     private List<Order> orders;
 
@@ -124,5 +126,21 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public String getFirst() {
+        return first;
+    }
+
+    public void setFirst(String first) {
+        this.first = first;
+    }
+
+    public String getLast() {
+        return last;
+    }
+
+    public void setLast(String last) {
+        this.last = last;
     }
 }

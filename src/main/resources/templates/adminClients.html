@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin Panel</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+<div th:include="includes :: adminnav"></div>
+
+<div class="container">
+    <h3><i>Today is a great day for a great day!</i></h3>
+
+    <h4>Client List</h4>
+    <form action="/">
+        <input type="text" placeholder="Search By Last Name"/>
+        <input type="submit" value="Search"/>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>First</th>
+            <th>Last</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip</th>
+            <th>Username</th>
+            <th>View Orders</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.first}"></td>
+            <td th:text="${customer.last}"></td>
+            <td th:text="${customer.phone}"></td>
+            <td th:text="${customer.email}"></td>
+            <td th:text="${customer.address}"></td>
+            <td th:text="${customer.city}"></td>
+            <td th:text="${customer.state}"></td>
+            <td th:text="${customer.zipCode}"></td>
+            <td th:text="${customer.username}"></td>
+            <td><a th:href="'/admin/clients/' + ${customer.id}">Orders</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+<span th:include="includes :: js"></span>
+
+</body>
+</html>

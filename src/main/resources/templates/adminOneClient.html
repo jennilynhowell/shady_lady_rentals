@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:inline="text">View Client: [[${customer.last}]]</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+<div th:include="includes :: adminnav"></div>
+
+<div class="container">
+    <h3><i>Today is a great day for a great day!</i></h3>
+
+    <h4>Client Details</h4>
+
+    <table>
+        <thead>
+        <tr>
+            <th>First</th>
+            <th>Last</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip</th>
+            <th>Username</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${customer.first}"></td>
+            <td th:text="${customer.last}"></td>
+            <td th:text="${customer.phone}"></td>
+            <td th:text="${customer.email}"></td>
+            <td th:text="${customer.address}"></td>
+            <td th:text="${customer.city}"></td>
+            <td th:text="${customer.state}"></td>
+            <td th:text="${customer.zipCode}"></td>
+            <td th:text="${customer.username}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Order History</h4>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Service Due</th>
+            <th>Service Fulfilled</th>
+            <th>Products</th>
+            <th>Date Submitted</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+
+            <td th:text="${#calendars.format(order.serviceRequestedAt, 'MMM dd yyyy HH:mm')}"></td>
+
+            <td th:if="${order.serviceCompletedAt}" th:text="${#calendars.format(order.serviceCompletedAt, 'MMM dd yyyy HH:mm')}"></td>
+            <td th:unless="${order.serviceCompletedAt}">(Open Order)</td>
+
+            <td>
+                <ul th:each="product : ${order.orderProducts}">
+                    <li th:inline="text">[[${product.quantity}]] [[${product.product.productName}]]</li>
+                </ul>
+            </td>
+
+            <td th:text="${#calendars.format(order.processedAt, 'MMM dd yyyy HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+<span th:include="includes :: js"></span>
+
+</body>
+</html>

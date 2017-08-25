@@ -25,6 +25,8 @@ public class Product {
     @Column(name = "in_stock")
     private int numberInStock;
 
+    private int reserved;
+
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
@@ -87,5 +89,11 @@ public class Product {
         this.supplier = supplier;
     }
 
+    public int getReserved() {
+        return reserved;
+    }
 
+    public void setReserved(int reserved) {
+        this.reserved = reserved;
+    }
 }

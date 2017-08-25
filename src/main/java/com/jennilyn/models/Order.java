@@ -29,11 +29,14 @@ public class Order {
     @Column(name = "service_completed_at")
     private Timestamp serviceCompletedAt;
 
+    @Column(name = "service_requested_at")
+    private Timestamp serviceRequestedAt;
+
     //Order has ONE user but user can have many orders
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonManagedReference
-    private User rental_user;
+    private User rentaluser;
 
     //Order has MANY orderProducts
     @OneToMany(mappedBy = "customer_order", cascade = CascadeType.PERSIST)
@@ -61,12 +64,12 @@ public class Order {
         this.createdAt = createdAt;
     }
 
-    public User getRental_user() {
-        return rental_user;
+    public User getRentaluser() {
+        return rentaluser;
     }
 
-    public void setRental_user(User rental_user) {
-        this.rental_user = rental_user;
+    public void setRentaluser(User rental_user) {
+        this.rentaluser = rentaluser;
     }
 
     public Timestamp getUpdatedAt() {
@@ -101,7 +104,6 @@ public class Order {
         this.orderProducts = orderProducts;
     }
 
-    //order has a list of OrderProducts, which has a list of Products that have .getSalePrice()
     public double getTotal() {
         return total;
     }
@@ -110,7 +112,15 @@ public class Order {
         this.total = total;
     }
 
-//    public double calculateTotal(){
+    public Timestamp getServiceRequestedAt() {
+        return serviceRequestedAt;
+    }
+
+    public void setServiceRequestedAt(Timestamp serviceRequestedAt) {
+        this.serviceRequestedAt = serviceRequestedAt;
+    }
+
+    //    public double calculateTotal(){
 //        double calculatedTotal = 0.0;
 //        for (OrderProduct orderProduct : orderProducts){
 //            int quantity = orderProduct.getQuantity();

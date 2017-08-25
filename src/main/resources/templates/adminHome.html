@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin Panel</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+    <div th:include="includes :: adminnav"></div>
+
+    <div class="container">
+        <h3><i>Today is a great day for a great day!</i></h3>
+
+        <h4>Outstanding Orders</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Service Due</th>
+                    <th>Customer</th>
+                    <th>Customer Phone</th>
+                    <th>Products</th>
+                    <th>Date Submitted</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="order : ${activeOrders}">
+
+                    <td th:text="${#calendars.format(order.serviceRequestedAt, 'MMM dd yyyy HH:mm')}"></td>
+
+                    <td th:inline="text"><a th:href="'/admin/clients/' + ${order.rentaluser.id}">[[${order.rentaluser.first}]] [[${order.rentaluser.last}]]</a></td>
+                    <td th:text="${order.rentaluser.phone}"></td>
+
+                    <td>
+                        <ul th:each="product : ${order.orderProducts}">
+                            <li th:inline="text">[[${product.quantity}]] <a th:href="@{admin/inventory}">[[${product.product.productName}]]</a></li>
+                        </ul>
+                    </td>
+
+                    <td th:text="${#calendars.format(order.processedAt, 'MMM dd yyyy HH:mm')}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+
+    <span th:include="includes :: js"></span>
+
+</body>
+</html>

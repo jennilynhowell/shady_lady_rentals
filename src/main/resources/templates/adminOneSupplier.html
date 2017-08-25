@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:inline="text">View Supplier: [[${supplier.companyName}]]</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+<div th:include="includes :: adminnav"></div>
+
+<div class="container">
+    <h3><i>Today is a great day for a great day!</i></h3>
+
+    <h4 th:inline="text">Supplier Details: [[${supplier.companyName}]]</h4>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Rep</th>
+            <th>Phone</th>
+            <th>Website</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${supplier.companyName}"></td>
+            <td th:text="${supplier.repName}"></td>
+            <td th:text="${supplier.phone}"></td>
+            <td th:inline="text"><a th:href="${supplier.website}" target="_blank">Website</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Products In Stock</h4>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>On Hand</th>
+            <th>Reserved for Order</th>
+            <th>Cost</th>
+            <th>Price to Reserve</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.productName}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.numberInStock}"></td>
+            <td th:text="${product.reserved}"></td>
+            <td th:text="${product.purchaseCost}"></td>
+            <td th:text="${product.salePrice}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+<span th:include="includes :: js"></span>
+
+</body>
+</html>
