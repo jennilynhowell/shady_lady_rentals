@@ -48,7 +48,7 @@
     </table>
 
     <h4>Add New User</h4>
-    <form action="/admin/inventory" method="post" th:object="${user}">
+    <form action="/admin/clients" method="post" th:object="${user}">
         <label for="first">First Name
             <input type="text" th:field="*{first}" id="first" placeholder="First Name"/>
         </label>
@@ -70,29 +70,35 @@
         </label>
 
         <label for="address">Street Address
-            <input type="text" th:field="*{email}" id="address" placeholder="Address"/>
+            <input type="text" th:field="*{address}" id="address" placeholder="Address"/>
         </label>
 
         <label for="city">City
             <input type="text" th:field="*{city}" id="city" placeholder="City"/>
         </label>
 
-        <label for="city">State
-            <input type="text" th:field="*{city}" id="city" placeholder="City"/>
-        </label>
-
-        <label for="supplier">Supplier
-            <select name="supplier" id="supplier" class="browser-default">
+        <label for="state">State
+            <select name="state" id="state" class="browser-default">
                 <option value="">Select</option>
-                <option th:each="supplier : ${suppliers}" th:value="${supplier.id}" th:text="${supplier.companyName}"></option>
+                <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>
             </select>
 
         </label>
-        <!--<script type="text/javascript">-->
-        <!--$(document).ready(function() {-->
-        <!--$('select').material_select();-->
-        <!--});-->
-        <!--</script>-->
+
+        <label for="zipCode">Postal Code
+            <input type="text" th:field="*{zipCode}" id="zipCode" placeholder="Postal Code"/>
+        </label>
+
+        <label for="phone">Phone
+            <input type="text" th:field="*{phone}" id="phone" placeholder="Phone"/>
+        </label>
+
+        <label for="role">Role
+            <select name="role" id="role" class="browser-default">
+                <option value="">Select</option>
+                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+            </select>
+        </label>
 
         <input type="submit" value="Add"/>
 

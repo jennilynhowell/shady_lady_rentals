@@ -2,6 +2,7 @@ package com.jennilyn.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jennilyn.enums.States;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,10 +24,12 @@ public class User {
     @Column(name = "street_address")
     private String address;
     private String city;
-    private String state;
+
+    @Enumerated(EnumType.STRING)
+    private States state;
 
     @Column(name = "postal_code")
-    private int zipCode;
+    private String zipCode;
     private String phone;
 
     @OneToOne
@@ -88,19 +91,19 @@ public class User {
         this.city = city;
     }
 
-    public String getState() {
+    public States getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(States state) {
         this.state = state;
     }
 
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 
