@@ -47,6 +47,57 @@
         </tbody>
     </table>
 
+    <h4>Add New User</h4>
+    <form action="/admin/inventory" method="post" th:object="${user}">
+        <label for="first">First Name
+            <input type="text" th:field="*{first}" id="first" placeholder="First Name"/>
+        </label>
+
+        <label for="last">Last Name
+            <input type="text" th:field="*{last}" id="last" placeholder="Last Name"/>
+        </label>
+
+        <label for="username">Username
+            <input type="text" th:field="*{username}" id="username" placeholder="Username"/>
+        </label>
+
+        <label for="password">Password
+            <input type="password" th:field="*{password}" id="password" placeholder="Password"/>
+        </label>
+
+        <label for="email">Email
+            <input type="email" th:field="*{email}" id="email" placeholder="Email"/>
+        </label>
+
+        <label for="address">Street Address
+            <input type="text" th:field="*{email}" id="address" placeholder="Address"/>
+        </label>
+
+        <label for="city">City
+            <input type="text" th:field="*{city}" id="city" placeholder="City"/>
+        </label>
+
+        <label for="city">State
+            <input type="text" th:field="*{city}" id="city" placeholder="City"/>
+        </label>
+
+        <label for="supplier">Supplier
+            <select name="supplier" id="supplier" class="browser-default">
+                <option value="">Select</option>
+                <option th:each="supplier : ${suppliers}" th:value="${supplier.id}" th:text="${supplier.companyName}"></option>
+            </select>
+
+        </label>
+        <!--<script type="text/javascript">-->
+        <!--$(document).ready(function() {-->
+        <!--$('select').material_select();-->
+        <!--});-->
+        <!--</script>-->
+
+        <input type="submit" value="Add"/>
+
+    </form>
+
 
 </div>
 

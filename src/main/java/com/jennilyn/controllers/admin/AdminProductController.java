@@ -5,12 +5,14 @@ import com.jennilyn.models.Supplier;
 import com.jennilyn.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class AdminFormController {
+public class AdminProductController {
 
     @Autowired
     OrderRepository orderRepo;
@@ -27,6 +29,35 @@ public class AdminFormController {
     @Autowired
     SupplierRepository supplierRepo;
 
+    @RequestMapping("/admin/inventory")
+    public String inventoryList(Model model){
+        Iterable<Product> products = productRepo.findAll();
+        Iterable<Supplier> suppliers = supplierRepo.findAll();
+        model.addAttribute("products", products);
+        model.addAttribute("product", new Product());
+        model.addAttribute("suppliers", suppliers);
+        return "admin/adminInventory";
+    }
+
+    @RequestMapping("/admin/suppliers")
+    public String adminSupplierList(Model model){
+        Iterable<Supplier> suppliers = supplierRepo.findAll();
+        model.addAttribute("suppliers", suppliers);
+        model.addAttribute("supplier", new Supplier());
+        return "admin/adminSuppliers";
+    }
+
+    @RequestMapping("/admin/suppliers/{supplierId}")
+    public String adminSupplierList(@PathVariable("supplierId") long supplierId,
+                                    Model model){
+        Supplier supplier = supplierRepo.findOne(supplierId);
+        Iterable<Product> products = productRepo.findAllBySupplier(supplier);
+        model.addAttribute("supplier", supplier);
+        model.addAttribute("products", products);
+        return "admin/adminOneSupplier";
+    }
+
+    //forms
     @RequestMapping(value = "/admin/suppliers", method = RequestMethod.POST)
     public String addSupplier(@RequestParam("companyName") String companyName,
                               @RequestParam("repName") String repName,
