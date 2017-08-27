@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin Panel</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+<div th:include="includes :: adminnav"></div>
+
+<div class="container">
+    <h3><i>Today is a great day for a great day!</i></h3>
+
+    <h4>Supplier List</h4>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Rep</th>
+            <th>Phone</th>
+            <th>Website</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="supplier : ${suppliers}">
+            <td th:inline="text"><a th:href="'/admin/suppliers/' + ${supplier.id}">[[${supplier.companyName}]]</a></td>
+            <td th:text="${supplier.repName}"></td>
+            <td th:text="${supplier.phone}"></td>
+            <td th:inline="text"><a th:href="${supplier.website}" target="_blank">Website</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Add New Supplier</h4>
+    <form action="/admin/suppliers" method="post" th:object="${supplier}">
+        <label for="companyName">Company Name
+            <input type="text" th:field="*{companyName}" id="companyName" placeholder="Company Name"/>
+        </label>
+
+        <label for="repName">Rep Name
+            <input type="text" th:field="*{repName}" id="repName" placeholder="Rep Name"/>
+        </label>
+
+        <label for="phone">Company Phone
+            <input type="text" th:field="*{phone}" id="phone" placeholder="Phone"/>
+        </label>
+
+        <label for="website">Company Website
+            <input type="url" th:field="*{website}" id="website" placeholder="Website"/>
+        </label>
+
+        <input type="submit" value="Add"/>
+    </form>
+
+
+</div>
+
+
+
+<span th:include="includes :: js"></span>
+
+</body>
+</html>

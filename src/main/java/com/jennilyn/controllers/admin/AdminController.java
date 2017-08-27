@@ -33,14 +33,14 @@ public class AdminController {
     public String adminHome(Model model){
         Iterable<Order> activeOrders = orderRepo.findAll();
         model.addAttribute("activeOrders", activeOrders);
-        return "adminHome";
+        return "admin/adminHome";
     }
 
     @RequestMapping("/admin/clients")
     public String adminClientList(Model model){
         Iterable<User> customers = userRepo.findAll();
         model.addAttribute("customers", customers);
-        return "adminClients";
+        return "admin/adminClients";
     }
 
     @RequestMapping("/admin/clients/{clientId}")
@@ -50,14 +50,25 @@ public class AdminController {
         Iterable<Order> orders = orderRepo.findAllByRentaluser(customer);
         model.addAttribute("customer", customer);
         model.addAttribute("orders", orders);
-        return "adminOneClient";
+        return "admin/adminOneClient";
     }
 
     @RequestMapping("/admin/inventory")
     public String inventoryList(Model model){
         Iterable<Product> products = productRepo.findAll();
+        Iterable<Supplier> suppliers = supplierRepo.findAll();
         model.addAttribute("products", products);
-        return "adminInventory";
+        model.addAttribute("product", new Product());
+        model.addAttribute("suppliers", suppliers);
+        return "admin/adminInventory";
+    }
+
+    @RequestMapping("/admin/suppliers")
+    public String adminSupplierList(Model model){
+        Iterable<Supplier> suppliers = supplierRepo.findAll();
+        model.addAttribute("suppliers", suppliers);
+        model.addAttribute("supplier", new Supplier());
+        return "admin/adminSuppliers";
     }
 
     @RequestMapping("/admin/suppliers/{supplierId}")
@@ -67,7 +78,7 @@ public class AdminController {
         Iterable<Product> products = productRepo.findAllBySupplier(supplier);
         model.addAttribute("supplier", supplier);
         model.addAttribute("products", products);
-        return "adminOneSupplier";
+        return "admin/adminOneSupplier";
     }
 
 }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin Panel</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+<div th:include="includes :: adminnav"></div>
+
+<div class="container">
+    <h3><i>Today is a great day for a great day!</i></h3>
+
+    <h4>Inventory Details</h4>
+    <table>
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>On Hand</th>
+            <th>Reserved for Order</th>
+            <th>Cost</th>
+            <th>Price to Reserve</th>
+            <th>Supplier</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.productName}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.numberInStock}"></td>
+            <td th:text="${product.reserved}"></td>
+            <td th:text="${product.purchaseCost}"></td>
+            <td th:text="${product.salePrice}"></td>
+            <td th:inline="text"><a th:href="'/admin/suppliers/' + ${product.supplier.id}">[[${product.supplier.companyName}]]</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Add New Product</h4>
+    <form action="/admin/inventory" method="post" th:object="${product}">
+            <label for="productName">Product Name
+                <input type="text" th:field="*{productName}" id="productName" placeholder="Product Name"/>
+            </label>
+
+            <label for="description">Description
+                <input type="text" th:field="*{description}" id="description" placeholder="Description"/>
+            </label>
+
+            <label for="purchaseCost">Purchase Cost
+                <input type="text" th:field="*{purchaseCost}" id="purchaseCost" placeholder="Purchase Cost"/>
+            </label>
+
+            <label for="numberInStock">Price to Reserve
+                <input type="text" th:field="*{salePrice}" id="numberInStock" placeholder="Sale Price"/>
+            </label>
+
+            <label for="numberInStock">Number Received
+                <input type="number" th:field="*{numberInStock}" id="salePrice" placeholder="Number Received"/>
+            </label>
+
+            <label for="supplier">Supplier
+                <select name="supplier" id="supplier" class="browser-default">
+                    <option value="">Select</option>
+                    <option th:each="supplier : ${suppliers}" th:value="${supplier.id}" th:text="${supplier.companyName}"></option>
+                </select>
+
+            </label>
+        <!--<script type="text/javascript">-->
+            <!--$(document).ready(function() {-->
+                <!--$('select').material_select();-->
+            <!--});-->
+        <!--</script>-->
+
+        <input type="submit" value="Add"/>
+
+    </form>
+
+
+</div>
+
+
+
+<span th:include="includes :: js"></span>
+
+</body>
+</html>
