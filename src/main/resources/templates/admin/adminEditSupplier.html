@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:inline="text">View Supplier: [[${supplier.companyName}]]</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+<div th:include="includes :: adminnav"></div>
+
+<div class="container">
+
+    <h4 th:inline="text">Edit Details for [[${supplier.companyName}]]</h4>
+
+    <form th:action="'/admin/suppliers/' + ${supplier.id} + '/edit'" th:object="${supplier}" method="post">
+        <label for="companyName">Company Name
+            <input type="text" th:field="*{companyName}" id="companyName" th:value="${companyName}"/>
+        </label>
+
+        <label for="repName">Rep Name
+            <input type="text" th:field="*{repName}" id="repName" th:value="${repName}"/>
+        </label>
+
+        <label for="phone">Phone
+            <input type="text" th:field="*{phone}" id="phone" th:value="${phone}"/>
+        </label>
+
+        <label for="website">Website
+            <input type="url" th:field="*{website}" id="website" th:value="${website}"/>
+        </label>
+
+        <input type="submit" value="Update"/>
+    </form>
+
+    <form th:action="'/admin/suppliers/' + ${supplier.id} + '/delete'" method="post">
+        <input type="submit" name="delete" value="DELETE"/>
+    </form>
+
+
+
+</div>
+
+
+
+<span th:include="includes :: js"></span>
+
+</body>
+</html>

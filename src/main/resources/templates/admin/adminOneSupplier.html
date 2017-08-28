@@ -20,6 +20,7 @@
             <th>Rep</th>
             <th>Phone</th>
             <th>Website</th>
+            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -28,6 +29,7 @@
             <td th:text="${supplier.repName}"></td>
             <td th:text="${supplier.phone}"></td>
             <td th:inline="text"><a th:href="${supplier.website}" target="_blank">Website</a></td>
+            <td><a th:href="'/admin/suppliers/' + ${supplier.id} + '/edit'">Edit</a></td>
         </tr>
         </tbody>
     </table>

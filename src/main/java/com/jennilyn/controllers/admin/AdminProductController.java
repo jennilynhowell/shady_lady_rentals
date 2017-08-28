@@ -90,4 +90,34 @@ public class AdminProductController {
         productRepo.save(newProduct);
         return "redirect:/admin/inventory";
     }
+
+    @RequestMapping(value = "/admin/suppliers/{supplierId}/edit", method = RequestMethod.GET)
+    public String editSupplier(@PathVariable("supplierId") long supplierId,
+                               Model model){
+        Supplier supplier = supplierRepo.findOne(supplierId);
+        model.addAttribute("supplier", supplier);
+        return "admin/adminEditSupplier";
+    }
+
+    @RequestMapping(value = "/admin/suppliers/{supplierId}/edit", method = RequestMethod.POST)
+    public String editSupplier(@PathVariable("supplierId") long supplierId,
+                               @RequestParam("companyName") String companyName,
+                               @RequestParam("repName") String repName,
+                               @RequestParam("phone") String phone,
+                               @RequestParam("website") String website){
+        Supplier supplier = supplierRepo.findOne(supplierId);
+        supplier.setCompanyName(companyName);
+        supplier.setRepName(repName);
+        supplier.setPhone(phone);
+        supplier.setWebsite(website);
+        supplierRepo.save(supplier);
+        return "redirect:/admin/suppliers";
+    }
+
+    @RequestMapping(value = "/admin/suppliers/{supplierId}/delete", method = RequestMethod.POST)
+    public String deleteSupplier(@PathVariable("supplierId") long supplierId){
+        supplierRepo.delete(supplierId);
+        return "redirect:/admin/suppliers";
+    }
+
 }
