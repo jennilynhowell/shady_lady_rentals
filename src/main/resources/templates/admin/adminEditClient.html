@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:inline="text">View Client: [[${customer.last}]]</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+<div th:include="includes :: adminnav"></div>
+
+<div class="container">
+
+    <h4 th:inline="text">Edit Details for [[${customer.first}]] [[${customer.last}]]</h4>
+
+    <form th:action="'/admin/clients/' + ${customer.id} + '/edit'" th:object="${customer}" method="post">
+        <label for="first">First Name
+            <input type="text" th:field="*{first}" id="first" th:value="${first}"/>
+        </label>
+
+        <label for="last">Last Name
+            <input type="text" th:field="*{last}" id="last" th:value="${last}"/>
+        </label>
+
+        <label for="email">Email
+            <input type="email" th:field="*{email}" id="email" th:value="${email}"/>
+        </label>
+
+        <label for="address">Street Address
+            <input type="text" th:field="*{address}" id="address" th:value="${address}"/>
+        </label>
+
+        <label for="city">City
+            <input type="text" th:field="*{city}" id="city" th:value="${city}"/>
+        </label>
+
+        <label for="state">Confirm/Update State
+            <select name="state" id="state" class="browser-default" required="required">
+                <option value="">Select</option>
+                <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>
+            </select>
+
+        </label>
+
+        <label for="zipCode">Postal Code
+            <input type="text" th:field="*{zipCode}" id="zipCode" th:value="${postalCode}"/>
+        </label>
+
+        <label for="phone">Phone
+            <input type="text" th:field="*{phone}" id="phone" th:value="${phone}"/>
+        </label>
+
+        <input type="submit" value="Update"/>
+    </form>
+
+
+
+</div>
+
+
+
+<span th:include="includes :: js"></span>
+
+</body>
+</html>

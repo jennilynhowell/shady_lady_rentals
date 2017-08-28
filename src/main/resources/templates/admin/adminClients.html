@@ -19,8 +19,7 @@
     <table>
         <thead>
         <tr>
-            <th>First</th>
-            <th>Last</th>
+            <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
             <th>Address</th>
@@ -33,8 +32,7 @@
         </thead>
         <tbody>
         <tr th:each="customer : ${customers}">
-            <td th:text="${customer.first}"></td>
-            <td th:text="${customer.last}"></td>
+            <td th:inline="text"><a th:href="'/admin/clients/' + ${customer.id}">[[${customer.last}]], [[${customer.first}]]</a></td>
             <td th:text="${customer.phone}"></td>
             <td th:text="${customer.email}"></td>
             <td th:text="${customer.address}"></td>

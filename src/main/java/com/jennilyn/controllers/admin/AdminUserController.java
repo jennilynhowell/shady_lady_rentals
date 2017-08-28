@@ -87,4 +87,37 @@ public class AdminUserController {
         userRepo.save(newUser);
         return "redirect:/admin/clients";
     }
+
+    @RequestMapping(value = "/admin/clients/{clientId}/edit", method = RequestMethod.GET)
+    public String editClient(@PathVariable("clientId") long clientId,
+                                  Model model){
+        User customer = userRepo.findOne(clientId);
+        States[] states = States.values();
+        model.addAttribute("customer", customer);
+        model.addAttribute("states", states);
+        return "admin/adminEditClient";
+    }
+
+    @RequestMapping(value = "/admin/clients/{clientId}/edit", method = RequestMethod.POST)
+    public String editClient(@PathVariable("clientId") long clientId,
+                             @RequestParam("first") String first,
+                             @RequestParam("last") String last,
+                             @RequestParam("email") String email,
+                             @RequestParam("address") String address,
+                             @RequestParam("city") String city,
+                             @RequestParam("state") String state,
+                             @RequestParam("zipCode") String zipCode,
+                             @RequestParam("phone") String phone){
+        User customer = userRepo.findOne(clientId);
+        States selectedState = States.valueOf(state);
+        customer.setFirst(first);
+        customer.setLast(last);
+        customer.setEmail(email);
+        customer.setAddress(address);
+        customer.setState(selectedState);
+        customer.setZipCode(zipCode);
+        customer.setPhone(phone);
+        userRepo.save(customer);
+        return "redirect:/admin/clients";
+    }
 }

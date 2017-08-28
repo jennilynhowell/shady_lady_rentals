@@ -25,6 +25,7 @@
             <th>State</th>
             <th>Zip</th>
             <th>Username</th>
+            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -38,6 +39,7 @@
             <td th:text="${customer.state}"></td>
             <td th:text="${customer.zipCode}"></td>
             <td th:text="${customer.username}"></td>
+            <td><a th:href="'/admin/clients/' + ${customer.id} + '/edit'">Edit</a></td>
         </tr>
         </tbody>
     </table>
