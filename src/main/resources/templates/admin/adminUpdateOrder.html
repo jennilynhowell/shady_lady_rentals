@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin Panel</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+    <div th:include="includes :: adminnav"></div>
+    <div class="container">
+        <h4>Update Order</h4>
+
+        <form action="">
+            <label for="quantity">Quantity
+                <input type="number" id="quantity" name="quantity"/>
+            </label>
+
+            <label for="product">Product
+                <select name="product" id="product" class="browser-default">
+                    <option value="">Please Select</option>
+                    <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.productName}"></option>
+                </select>
+            </label>
+
+        </form>
+    </div>
+
+
+    <span th:include="includes :: js"></span>
+
+</body>
+</html>
+
+
+

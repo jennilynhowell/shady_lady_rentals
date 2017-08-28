@@ -17,10 +17,17 @@ public class AdminHomeController {
     @Autowired
     OrderRepository orderRepo;
 
+    @Autowired
+    UserRepository userRepo;
+
+    @Autowired
+    ProductRepository productRepo;
+
     @RequestMapping("/admin")
     public String adminHome(Model model){
         Iterable<Order> activeOrders = orderRepo.findAll();
         model.addAttribute("activeOrders", activeOrders);
+        model.addAttribute("order", new Order());
         return "admin/adminHome";
     }
 

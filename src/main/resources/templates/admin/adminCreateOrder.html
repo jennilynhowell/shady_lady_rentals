@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin Panel</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+    <div th:include="includes :: adminnav"></div>
+    <div class="container">
+        <h4>Create New Order</h4>
+        <form action="/admin/orders/create" method="post" th:object="${order}">
+            <label for="user">User
+                <select th:field="*{rentaluser}" id="user" class="browser-default">
+                    <option value="">Select Client</option>
+                    <option th:each="client : ${clients}" th:value="${client.id}" th:inline="text">[[${client.last}]], [[${client.first}]]</option>
+                </select>
+            </label>
+
+            <label for="serviceRequest">Date of Service
+                <input type="text" class="datepicker" id="serviceRequest" th:field="*{serviceRequestedAt}"/>
+
+            </label>
+
+            <label for="location">Location
+                <input type="text" id="location" th:field="*{location}"/>
+            </label>
+
+            <label for="notes">Notes
+                <input type="text" id="notes" th:field="*{notes}"/>
+            </label>
+
+            <input type="submit" value="Create Order"/>
+        </form>
+
+
+    </div>
+
+    <span th:include="includes :: js"></span>
+    <script>
+        $(document).ready(function(){
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15, // Creates a dropdown of 15 years to control year,
+                today: 'Today',
+                clear: 'Clear',
+                close: 'Ok',
+                closeOnSelect: false // Close upon selecting a date,
+            });
+        });
+
+    </script>
+
+</body>
+</html>

@@ -32,6 +32,10 @@ public class Order {
     @Column(name = "service_requested_at")
     private Timestamp serviceRequestedAt;
 
+    private String location;
+    private String notes;
+    private boolean fulfilled;
+
     //Order has ONE user but user can have many orders
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -118,6 +122,30 @@ public class Order {
 
     public void setServiceRequestedAt(Timestamp serviceRequestedAt) {
         this.serviceRequestedAt = serviceRequestedAt;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public boolean isFulfilled() {
+        return fulfilled;
+    }
+
+    public void setFulfilled(boolean fulfilled) {
+        this.fulfilled = fulfilled;
     }
 
     //    public double calculateTotal(){

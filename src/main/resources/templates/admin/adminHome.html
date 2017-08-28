@@ -9,7 +9,6 @@
     <div th:include="includes :: adminnav"></div>
 
     <div class="container">
-        <h3><i>Today is a great day for a great day!</i></h3>
 
         <h4>Outstanding Orders</h4>
         <table>
@@ -20,6 +19,10 @@
                     <th>Customer Phone</th>
                     <th>Products</th>
                     <th>Date Submitted</th>
+                    <th>Deliver To</th>
+                    <th>Notes</th>
+                    <th>Fulfilled?</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,11 +40,20 @@
                     </td>
 
                     <td th:text="${#calendars.format(order.processedAt, 'MMM dd yyyy HH:mm')}"></td>
+
+                    <td th:text="${order.location}"></td>
+                    <td th:text="${order.notes}"></td>
+                    <td> Mark
+                        <!--<form action="" th:object="${order}">-->
+                            <!--<label for="fulfilled">-->
+                                <!--<input type="submit" id="fulfilled" th:field="*{fulfilled}" value="Mark Fulfilled"/>-->
+                            <!--</label>-->
+                        <!--</form>-->
+                    </td>
+                    <td><a th:href="'/admin/orders/' + ${order.id} + '/update'">Edit</a></td>
                 </tr>
             </tbody>
         </table>
-
-
     </div>
 
 
