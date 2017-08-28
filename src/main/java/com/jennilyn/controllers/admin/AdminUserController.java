@@ -120,4 +120,10 @@ public class AdminUserController {
         userRepo.save(customer);
         return "redirect:/admin/clients";
     }
+
+    @RequestMapping(value = "/admin/clients/{clientId}/delete", method = RequestMethod.POST)
+    public String deleteClient(@PathVariable("clientId") long clientId){
+        userRepo.delete(clientId);
+        return "redirect:/admin/clients";
+    }
 }

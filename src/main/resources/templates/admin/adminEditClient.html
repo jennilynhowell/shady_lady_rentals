@@ -52,6 +52,10 @@
         <input type="submit" value="Update"/>
     </form>
 
+    <form th:action="'/admin/clients/' + ${customer.id} + '/delete'" method="post">
+        <input type="submit" name="delete" value="DELETE"/>
+    </form>
+
 
 
 </div>
