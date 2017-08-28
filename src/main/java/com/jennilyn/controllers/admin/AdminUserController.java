@@ -6,6 +6,7 @@ import com.jennilyn.models.Role;
 import com.jennilyn.models.User;
 import com.jennilyn.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,9 @@ public class AdminUserController {
 
     @Autowired
     RoleRepository roleRepo;
+
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     @RequestMapping("/admin/clients")
     public String adminClientList(Model model){
@@ -70,7 +74,7 @@ public class AdminUserController {
         newUser.setFirst(first);
         newUser.setLast(last);
         newUser.setUsername(username);
-        newUser.setPassword(password);
+        newUser.setPassword(encoder.encode(password));
         newUser.setEmail(email);
         newUser.setAddress(address);
         newUser.setCity(city);
@@ -108,6 +112,7 @@ public class AdminUserController {
         customer.setLast(last);
         customer.setEmail(email);
         customer.setAddress(address);
+        customer.setCity(city);
         customer.setState(selectedState);
         customer.setZipCode(zipCode);
         customer.setPhone(phone);
