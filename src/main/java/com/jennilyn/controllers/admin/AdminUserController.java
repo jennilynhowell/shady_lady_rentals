@@ -29,12 +29,6 @@ public class AdminUserController {
     @Autowired
     RoleRepository roleRepo;
 
-    @Autowired
-    ProductRepository productRepo;
-
-    @Autowired
-    SupplierRepository supplierRepo;
-
     @RequestMapping("/admin/clients")
     public String adminClientList(Model model){
         Iterable<User> customers = userRepo.findAll();

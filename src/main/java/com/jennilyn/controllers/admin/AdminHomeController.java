@@ -17,18 +17,6 @@ public class AdminHomeController {
     @Autowired
     OrderRepository orderRepo;
 
-    @Autowired
-    UserRepository userRepo;
-
-    @Autowired
-    RoleRepository roleRepo;
-
-    @Autowired
-    ProductRepository productRepo;
-
-    @Autowired
-    SupplierRepository supplierRepo;
-
     @RequestMapping("/admin")
     public String adminHome(Model model){
         Iterable<Order> activeOrders = orderRepo.findAll();

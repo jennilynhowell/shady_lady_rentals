@@ -15,15 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AdminProductController {
 
     @Autowired
-    OrderRepository orderRepo;
-
-    @Autowired
-    UserRepository userRepo;
-
-    @Autowired
-    RoleRepository roleRepo;
-
-    @Autowired
     ProductRepository productRepo;
 
     @Autowired
