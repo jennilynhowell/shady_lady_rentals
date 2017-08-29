@@ -42,12 +42,6 @@ public class HomeController {
     public String index(Model model){
         RestTemplate restTemplate = new RestTemplate();
         List<Periods> weather = restTemplate.getForObject("https://api.weather.gov/points/32.7618,-79.8573/forecast", Properties.class).getPeriods();
-//        Periods quote = restTemplate.getForObject("https://api.weather.gov/points/32.7618,-79.8573/forecast", Periods.class);
-//        String weather = quote.toString();
-
-//        ResponseEntity<List<Periods>> periodsResponse = restTemplate.exchange("https://api.weather.gov/points/32.7618,-79.8573/forecast", HttpMethod.GET, null, new ParameterizedTypeReference<List<Periods>>(){});
-//
-//        List<Periods> weather = periodsResponse.getBody();
 
         model.addAttribute("weather", weather);
         System.out.println(weather);
