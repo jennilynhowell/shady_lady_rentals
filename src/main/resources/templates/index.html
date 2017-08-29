@@ -8,7 +8,15 @@
 <body>
     <div th:include="includes :: navbar"></div>
 
-    <h1>Hello</h1>
+    <div class="container">
+        <h1>Hello</h1>
+        <h3>Weather</h3>
+        <ul>
+            <li th:text="${weather}"></li>
+        </ul>
+    </div>
+
+
 
     <span th:include="includes :: js"></span>
 
