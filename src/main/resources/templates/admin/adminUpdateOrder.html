@@ -16,6 +16,7 @@
                 <th>Customer</th>
                 <th>Customer Phone</th>
                 <th>Products</th>
+                <th>Delete Product</th>
                 <th>Date Submitted</th>
                 <th>Deliver To</th>
                 <th>Notes</th>
@@ -32,6 +33,15 @@
                 <td>
                     <ul th:each="product : ${order.orderProducts}">
                         <li th:inline="text">[[${product.quantity}]] <a th:href="@{admin/inventory}">[[${product.product.productName}]]</a></li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                            <form th:each="orderProduct : ${orderProds}" th:action="'/admin/orderProducts/' + ${orderProduct.id} + '/delete'" method="post">
+                                <input type="submit" value="X"/>
+                            </form>
+                        </li>
                     </ul>
                 </td>
 

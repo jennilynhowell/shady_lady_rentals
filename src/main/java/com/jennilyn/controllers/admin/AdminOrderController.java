@@ -53,8 +53,10 @@ public class AdminOrderController {
                               Model model){
         Order order = orderRepo.findOne(orderId);
         Iterable<Product> products = productRepo.findAll();
+        Iterable<OrderProduct> orderProducts = order.getOrderProducts();
         model.addAttribute("order", order);
         model.addAttribute("products", products);
+        model.addAttribute("orderProds", orderProducts);
         return "admin/adminUpdateOrder";
     }
 
@@ -141,6 +143,14 @@ public class AdminOrderController {
         orderRepo.delete(orderId);
 
         return "redirect:/admin";
+    }
+
+    @RequestMapping(value = "/admin/orderProducts/{orderProductId}/delete", method = RequestMethod.POST)
+    public String deleteItem(@PathVariable("orderProductId") long orderProductId){
+        OrderProduct orderProduct = orderProductRepo.findOne(orderProductId);
+        long id = orderProduct.getCustomer_order().getRentaluser().getId();
+        orderProductRepo.delete(orderProductId);
+        return "redirect:/admin/orders/" + id + "/update";
     }
 
 }
