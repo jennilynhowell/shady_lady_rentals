@@ -38,8 +38,8 @@ public class Order {
 
     //Order has ONE user but user can have many orders
     @ManyToOne
-    @JoinColumn(name = "user_id")
     @JsonManagedReference
+    @JoinColumn(name = "user_id")
     private User rentaluser;
 
     //Order has MANY orderProducts

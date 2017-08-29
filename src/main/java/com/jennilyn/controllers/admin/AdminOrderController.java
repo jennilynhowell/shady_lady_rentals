@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -30,6 +32,7 @@ public class AdminOrderController {
 
     private Calendar calendar = Calendar.getInstance();
     private Date now = calendar.getTime();
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss Z");
 
     @RequestMapping("/admin/orders/create")
     public String addOrder(Model model){
@@ -51,16 +54,26 @@ public class AdminOrderController {
 
     @RequestMapping(value = "/admin/orders/create", method = RequestMethod.POST)
     public String addOrder(@RequestParam("rentaluser") long userId,
-                           @RequestParam("serviceRequestedAt") Timestamp serviceRequestedAt,
+                           @RequestParam("serviceRequestedAt") String serviceRequestedAt,
                            @RequestParam("location") String location,
                            @RequestParam("notes") String notes){
         Order newOrder = new Order();
-        Timestamp time = new Timestamp(now.getTime());
-        newOrder.setCreatedAt(time);
-        newOrder.setRentaluser(userRepo.findOne(userId));
+        User client = userRepo.findOne(userId);
+        //parse date string to Timestamp
+        Date orderTime;
+        Timestamp orderTimestamp;
+        try {
+            orderTime = dateFormat.parse(serviceRequestedAt);
+            orderTimestamp = new Timestamp(orderTime.getTime());
+            newOrder.setServiceRequestedAt(orderTimestamp);
+        } catch (ParseException e) {}
+
+        Timestamp currentTime = new Timestamp(now.getTime());
+        newOrder.setCreatedAt(currentTime);
+        newOrder.setRentaluser(client);
         newOrder.setLocation(location);
         newOrder.setNotes(notes);
-        newOrder.setServiceRequestedAt(serviceRequestedAt);
+
         orderRepo.save(newOrder);
         long id = newOrder.getId();
         return "redirect:/admin/orders/" + id;
