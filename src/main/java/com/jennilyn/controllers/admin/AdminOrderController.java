@@ -145,6 +145,8 @@ public class AdminOrderController {
         return "redirect:/admin";
     }
 
+
+    //TODO: this is broken
     @RequestMapping(value = "/admin/orderProducts/{orderProductId}/delete", method = RequestMethod.POST)
     public String deleteItem(@PathVariable("orderProductId") long orderProductId){
         OrderProduct orderProduct = orderProductRepo.findOne(orderProductId);
