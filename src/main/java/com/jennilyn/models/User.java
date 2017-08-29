@@ -42,8 +42,8 @@ public class User implements UserDetails {
     private Role role;
 
     //User can have many orders
-    @OneToMany(mappedBy = "rentaluser", cascade = CascadeType.PERSIST)
     @JsonBackReference
+    @OneToMany(mappedBy = "rentaluser", cascade = CascadeType.PERSIST)
     private List<Order> orders;
 
     private boolean active;

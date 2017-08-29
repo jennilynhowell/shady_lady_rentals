@@ -1,6 +1,7 @@
 package com.jennilyn.controllers.admin;
 
 import com.jennilyn.models.Order;
+import com.jennilyn.models.OrderProduct;
 import com.jennilyn.models.Product;
 import com.jennilyn.models.User;
 import com.jennilyn.repositories.*;
@@ -30,6 +31,9 @@ public class AdminOrderController {
     @Autowired
     ProductRepository productRepo;
 
+    @Autowired
+    OrderProductRepository orderProductRepo;
+
     private Calendar calendar = Calendar.getInstance();
     private Date now = calendar.getTime();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss Z");
@@ -48,17 +52,21 @@ public class AdminOrderController {
     public String updateOrder(@PathVariable("orderId") long orderId,
                               Model model){
         Order order = orderRepo.findOne(orderId);
+        Iterable<Product> products = productRepo.findAll();
         model.addAttribute("order", order);
+        model.addAttribute("products", products);
         return "admin/adminUpdateOrder";
     }
 
+    //creates only the new order
     @RequestMapping(value = "/admin/orders/create", method = RequestMethod.POST)
-    public String addOrder(@RequestParam("rentaluser") long userId,
+    public String addOrder(@RequestParam("rentaluser") long rentaluserId,
                            @RequestParam("serviceRequestedAt") String serviceRequestedAt,
                            @RequestParam("location") String location,
                            @RequestParam("notes") String notes){
         Order newOrder = new Order();
-        User client = userRepo.findOne(userId);
+        User client = userRepo.findOne(rentaluserId);
+
         //parse date string to Timestamp
         Date orderTime;
         Timestamp orderTimestamp;
@@ -73,10 +81,66 @@ public class AdminOrderController {
         newOrder.setRentaluser(client);
         newOrder.setLocation(location);
         newOrder.setNotes(notes);
-
         orderRepo.save(newOrder);
         long id = newOrder.getId();
-        return "redirect:/admin/orders/" + id;
+        return "redirect:/admin/orders/" + id + "/update";
+    }
+
+    //adds orderProducts to order
+    @RequestMapping(value = "/admin/orders/{orderId}/update", method = RequestMethod.POST)
+    public String updateOrder(@PathVariable("orderId") long orderId,
+                              @RequestParam("quantity") int quantity,
+                              @RequestParam("product") long productId,
+                              Model model){
+        Order order = orderRepo.findOne(orderId);
+        OrderProduct orderProduct = new OrderProduct();
+        orderProduct.setCustomer_order(order);
+        orderProduct.setQuantity(quantity);
+        orderProduct.setProduct(productRepo.findOne(productId));
+
+        Timestamp currentTime = new Timestamp(now.getTime());
+        order.setUpdatedAt(currentTime);
+
+        orderProductRepo.save(orderProduct);
+        model.addAttribute("order", order);
+        return "admin/adminUpdateOrder";
+    }
+
+    @RequestMapping(value = "/admin/orders/{orderId}/process", method = RequestMethod.POST)
+    public String processOrder(@PathVariable("orderId") long orderId){
+        double total = 0.0;
+        Order order = orderRepo.findOne(orderId);
+
+        for (OrderProduct orderProduct : order.getOrderProducts()){
+            total += orderProduct.getProduct().getSalePrice();
+        }
+
+        order.setTotal(total);
+
+        Timestamp currentTime = new Timestamp(now.getTime());
+        order.setProcessedAt(currentTime);
+
+        orderRepo.save(order);
+        return "redirect:/admin";
+    }
+
+    @RequestMapping(value = "/admin/orders/{orderId}/fulfill", method = RequestMethod.POST)
+    public String fulfillOrder(@PathVariable("orderId") long orderId){
+        Order order = orderRepo.findOne(orderId);
+        order.setFulfilled(true);
+
+        Timestamp currentTime = new Timestamp(now.getTime());
+        order.setServiceCompletedAt(currentTime);
+
+        orderRepo.save(order);
+        return "redirect:/admin";
+    }
+
+    @RequestMapping(value = "/admin/orders/{orderId}/delete", method = RequestMethod.POST)
+    public String deleteOrder(@PathVariable("orderId") long orderId){
+        orderRepo.delete(orderId);
+
+        return "redirect:/admin";
     }
 
 }

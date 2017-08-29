@@ -9,8 +9,49 @@
     <div th:include="includes :: adminnav"></div>
     <div class="container">
         <h4>Update Order</h4>
+        <table>
+            <thead>
+            <tr>
+                <th>Service Due</th>
+                <th>Customer</th>
+                <th>Customer Phone</th>
+                <th>Products</th>
+                <th>Date Submitted</th>
+                <th>Deliver To</th>
+                <th>Notes</th>
+                <th>Fulfilled?</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${#calendars.format(order.serviceRequestedAt, 'MMM dd yyyy HH:mm')}"></td>
 
-        <form action="">
+                <td th:inline="text"><a th:href="'/admin/clients/' + ${order.rentaluser.id}">[[${order.rentaluser.first}]] [[${order.rentaluser.last}]]</a></td>
+                <td th:text="${order.rentaluser.phone}"></td>
+
+                <td>
+                    <ul th:each="product : ${order.orderProducts}">
+                        <li th:inline="text">[[${product.quantity}]] <a th:href="@{admin/inventory}">[[${product.product.productName}]]</a></li>
+                    </ul>
+                </td>
+
+                <td th:if="${order.processedAt}" th:text="${#calendars.format(order.processedAt, 'MMM dd yyyy HH:mm')}"></td>
+                <td th:unless="${order.processedAt}">Still Building...</td>
+
+                <td th:text="${order.location}"></td>
+                <td th:text="${order.notes}"></td>
+                <td> Mark
+                    <!--<form action="" th:object="${order}">-->
+                    <!--<label for="fulfilled">-->
+                    <!--<input type="submit" id="fulfilled" th:field="*{fulfilled}" value="Mark Fulfilled"/>-->
+                    <!--</label>-->
+                    <!--</form>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <form th:action="'/admin/orders/' + ${order.id} + '/update'" method="post">
             <label for="quantity">Quantity
                 <input type="number" id="quantity" name="quantity"/>
             </label>
@@ -22,6 +63,16 @@
                 </select>
             </label>
 
+            <input type="submit" value="Add to Order"/>
+
+        </form>
+
+        <form th:action="'/admin/orders/' + ${order.id} + '/process'" method="post">
+            <input type="submit" value="Submit Order for Processing"/>
+        </form>
+
+        <form th:action="'/admin/orders/' + ${order.id} + '/delete'" method="post">
+            <input type="submit" value="DELETE ORDER"/>
         </form>
     </div>
 

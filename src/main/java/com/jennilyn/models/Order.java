@@ -38,8 +38,8 @@ public class Order {
 
     //Order has ONE user but user can have many orders
     @ManyToOne
+    @JoinColumn(name = "rental_user_id", insertable = true)
     @JsonManagedReference
-    @JoinColumn(name = "user_id")
     private User rentaluser;
 
     //Order has MANY orderProducts
@@ -72,7 +72,7 @@ public class Order {
         return rentaluser;
     }
 
-    public void setRentaluser(User rental_user) {
+    public void setRentaluser(User rentaluser) {
         this.rentaluser = rentaluser;
     }
 

@@ -23,10 +23,11 @@
                     <th>Notes</th>
                     <th>Fulfilled?</th>
                     <th>Edit</th>
+                    <th>Total Sale</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="order : ${activeOrders}">
+                <tr th:unless="${order.fulfilled}" th:each="order : ${activeOrders}">
 
                     <td th:text="${#calendars.format(order.serviceRequestedAt, 'MMM dd yyyy HH:mm')}"></td>
 
@@ -43,15 +44,47 @@
 
                     <td th:text="${order.location}"></td>
                     <td th:text="${order.notes}"></td>
-                    <td> Mark
-                        <!--<form action="" th:object="${order}">-->
-                            <!--<label for="fulfilled">-->
-                                <!--<input type="submit" id="fulfilled" th:field="*{fulfilled}" value="Mark Fulfilled"/>-->
-                            <!--</label>-->
-                        <!--</form>-->
+                    <td>
+                        <form th:action="'/admin/orders/' + ${order.id} + '/fulfill'" method="post">
+                            <input type="submit" id="fulfilled" name="fulfilled" value="Mark Fulfilled"/>
+                        </form>
                     </td>
                     <td><a th:href="'/admin/orders/' + ${order.id} + '/update'">Edit</a></td>
+                    <td th:text="${order.total}"></td>
                 </tr>
+            </tbody>
+        </table>
+
+        <h4>Past Orders</h4>
+        <table>
+            <thead>
+            <tr>
+                <th>Service Due</th>
+                <th>Customer</th>
+                <th>Customer Phone</th>
+                <th>Products</th>
+                <th>Date Fulfilled</th>
+                <th>Total Sale</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${order.fulfilled}" th:each="order : ${activeOrders}">
+
+                <td th:text="${#calendars.format(order.serviceRequestedAt, 'MMM dd yyyy HH:mm')}"></td>
+
+                <td th:inline="text"><a th:href="'/admin/clients/' + ${order.rentaluser.id}">[[${order.rentaluser.first}]] [[${order.rentaluser.last}]]</a></td>
+                <td th:text="${order.rentaluser.phone}"></td>
+
+                <td>
+                    <ul th:each="product : ${order.orderProducts}">
+                        <li th:inline="text">[[${product.quantity}]] <a th:href="@{admin/inventory}">[[${product.product.productName}]]</a></li>
+                    </ul>
+                </td>
+
+                <td th:text="${#calendars.format(order.serviceCompletedAt, 'MMM dd yyyy HH:mm')}"></td>
+
+                <td th:text="${order.total}"></td>
+            </tr>
             </tbody>
         </table>
     </div>

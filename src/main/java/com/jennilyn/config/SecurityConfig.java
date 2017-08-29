@@ -2,6 +2,7 @@ package com.jennilyn.config;
 
 import com.jennilyn.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     BCryptPasswordEncoder encoder;
 
+    @Qualifier("dataSource")
     @Autowired
     DataSource dataSource;
 
@@ -54,7 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
-                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/admin/**").permitAll()
+//                    .antMatchers("/admin/**").hasRole("ADMIN")
                     .and()
                 .formLogin()
                     .loginPage("/login")
