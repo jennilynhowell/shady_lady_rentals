@@ -43,9 +43,9 @@ public class HomeController {
     public String index(Model model){
         RestTemplate restTemplate = new RestTemplate();
         Properties weather = restTemplate.getForObject("https://api.weather.gov/points/32.7618,-79.8573/forecast", Forecast.class).getProperties();
-        String firstWeather = weather.getPeriods().get(0).toString();
-        String secondWeather = weather.getPeriods().get(1).toString();
-        String thirdWeather = weather.getPeriods().get(2).toString();
+        Periods firstWeather = weather.getPeriods().get(0);
+        Periods secondWeather = weather.getPeriods().get(1);
+        Periods thirdWeather = weather.getPeriods().get(2);
 
         model.addAttribute("firstWeather", firstWeather);
         model.addAttribute("secondWeather", secondWeather);

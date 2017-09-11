@@ -12,9 +12,9 @@
         <h1>Hello</h1>
         <h3>Weather</h3>
         <ul>
-            <li th:text="${firstWeather}"></li>
-            <li th:text="${secondWeather}"></li>
-            <li th:text="${thirdWeather}"></li>
+            <li th:inline="text">[[${firstWeather.name}]]: [[${firstWeather.temperature}]]ºF, Winds [[${firstWeather.windSpeed}]] [[${firstWeather.windDirection}]]. [[${firstWeather.shortForecast}]]</li>
+            <li th:inline="text">[[${secondWeather.name}]]: [[${secondWeather.temperature}]]ºF, Winds [[${firstWeather.windSpeed}]] [[${firstWeather.windDirection}]]. [[${secondWeather.shortForecast}]]</li>
+            <li th:inline="text">[[${thirdWeather.name}]]: [[${thirdWeather.temperature}]]ºF, Winds [[${thirdWeather.windSpeed}]] [[${thirdWeather.windDirection}]]. [[${thirdWeather.shortForecast}]]</li>
         </ul>
     </div>
 

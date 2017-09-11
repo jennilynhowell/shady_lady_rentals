@@ -12,6 +12,8 @@ public class Periods {
     private String name;
 
     private int temperature;
+    private String windSpeed;
+    private String windDirection;
     private String shortForecast;
     private String icon;
 
@@ -31,6 +33,22 @@ public class Periods {
 
     public void setTemperature(int temperature) {
         this.temperature = temperature;
+    }
+
+    public String getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(String windSpeed) {
+        this.windSpeed = windSpeed;
+    }
+
+    public String getWindDirection() {
+        return windDirection;
+    }
+
+    public void setWindDirection(String windDirection) {
+        this.windDirection = windDirection;
     }
 
     public String getIcon() {
