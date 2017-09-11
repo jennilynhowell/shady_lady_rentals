@@ -8,7 +8,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Properties {
 
-    @JsonProperty("properties")
+    @JsonProperty("periods")
     private List<Periods> periods;
 
     public Properties() {}
@@ -19,5 +19,12 @@ public class Properties {
 
     public void setPeriods(List<Periods> periods) {
         this.periods = periods;
+    }
+
+    @Override
+    public String toString() {
+        return "Properties{" +
+                "periods=" + periods +
+                '}';
     }
 }

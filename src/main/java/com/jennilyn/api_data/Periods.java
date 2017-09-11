@@ -9,22 +9,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Periods {
 
     @JsonProperty("name")
-    private String time;
+    private String name;
 
     private int temperature;
     private String shortForecast;
-
-    @JsonProperty("icon")
-    private String iconUrl;
+    private String icon;
 
     public Periods() {}
 
-    public String getTime() {
-        return time;
+    public String getName() {
+        return name;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getTemperature() {
@@ -35,12 +33,12 @@ public class Periods {
         this.temperature = temperature;
     }
 
-    public String getIconUrl() {
-        return iconUrl;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getShortForecast() {
@@ -54,9 +52,9 @@ public class Periods {
     @Override
     public String toString() {
         return "Weather{" +
-                "time='" + time + '\'' +
+                "name='" + name + '\'' +
                 ", temperature=" + temperature +
-                ", iconUrl='" + iconUrl + '\'' +
+                ", icon='" + icon + '\'' +
                 ", shortForecast='" + shortForecast + '\'' +
                 '}';
     }

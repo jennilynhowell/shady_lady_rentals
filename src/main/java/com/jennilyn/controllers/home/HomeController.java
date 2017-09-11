@@ -2,6 +2,7 @@ package com.jennilyn.controllers.home;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jennilyn.api_data.Forecast;
 import com.jennilyn.api_data.Periods;
 import com.jennilyn.api_data.Properties;
 import com.jennilyn.models.Role;
@@ -41,10 +42,14 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model){
         RestTemplate restTemplate = new RestTemplate();
-        List<Periods> weather = restTemplate.getForObject("https://api.weather.gov/points/32.7618,-79.8573/forecast", Properties.class).getPeriods();
+        Properties weather = restTemplate.getForObject("https://api.weather.gov/points/32.7618,-79.8573/forecast", Forecast.class).getProperties();
+        String firstWeather = weather.getPeriods().get(0).toString();
+        String secondWeather = weather.getPeriods().get(1).toString();
+        String thirdWeather = weather.getPeriods().get(2).toString();
 
-        model.addAttribute("weather", weather);
-        System.out.println(weather);
+        model.addAttribute("firstWeather", firstWeather);
+        model.addAttribute("secondWeather", secondWeather);
+        model.addAttribute("thirdWeather", thirdWeather);
         return "index";
     }
 
